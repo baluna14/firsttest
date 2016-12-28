@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.test.dr.testapp"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"http://naver/com\""
+            resValue("string", "TEST_KEY", "abcdefg")
+        }
+        release {
+            buildConfigField "String", "BASE_URL", "\"http://naver/com\""
+            resValue("string", "TEST_KEY", "abcdefg")
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        full {
+            applicationId "com.test.dr.testapp.full"
+            testApplicationId "com.test.dr.testapp.full.test"
+
+            buildConfigField "boolean", "SHOW_CURRENT_TIME", "true"
+        }
+        demo {
+            applicationId "com.test.dr.testapp.demo"
+            testApplicationId "com.test.dr.testapp.demo.test"
+
+            buildConfigField "boolean", "SHOW_CURRENT_TIME", "false"
+        }
+    }
+
+    sourceSets {
+        full {
+            java.srcDirs = ['src/main/java', 'src/full/java']
+            res.srcDirs = ['src/main/res', 'src/full/res']
+        }
+        demo {
+            java.srcDirs = ['src/main/java', 'src/demo/java']
+            res.srcDirs = ['src/main/res', 'src/demo/res']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
+    testCompile 'junit:junit:4.12'
+}
