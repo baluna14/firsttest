@@ -89,7 +89,9 @@ public class MainActivity extends AppCompatActivity
 
             int commitTest = test++;
         } else if (id == R.id.nav_slideshow) {
+            int test = 0;
 
+            int secondTest = test--;
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
